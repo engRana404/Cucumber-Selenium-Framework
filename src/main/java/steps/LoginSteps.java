@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.Duration;
 
@@ -32,31 +33,24 @@ public class LoginSteps {
     @Then("I should be redirected to the dashboard")
     public void iShouldBeRedirectedToTheDashboard() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        try {
-            // Wait for ANY success indicator (e.g., welcome message, dashboard element, etc.)
-            wait.until(ExpectedConditions.or(
-                    ExpectedConditions.urlContains("dashboard"),
-                    ExpectedConditions.presenceOfElementLocated(By.id("welcome-message"))
-            ));
+        // Wait for ANY success indicator (e.g., welcome message, dashboard element, etc.)
+        wait.until(ExpectedConditions.or(
+                ExpectedConditions.urlContains("dashboard"),
+                ExpectedConditions.presenceOfElementLocated(By.id("welcome-message"))
+        ));
 
-            String url = driver.getCurrentUrl();
+        String url = driver.getCurrentUrl();
 
-            if (!url.contains("dashboard")) {
-                throw new AssertionError("Login might have failed. Current URL: " + url);
-            }
-
-        } catch (Exception e) {
-            throw new AssertionError("Dashboard not loaded or login failed.");
-        }
+        assertTrue(url.contains("dashboard"),
+                "Login might have failed. Current URL: " + url);
         driver.quit();
     }
 
     @Then("I should see an error message saying {string}")
     public void iShouldSeeAnErrorMessage(String expectedErrorMessage) {
         String actualErrorMessage = driver.findElement(By.id("alert-message")).getText();
-        if (!actualErrorMessage.contains(expectedErrorMessage)) {
-            throw new AssertionError("Expected error message: " + expectedErrorMessage + " but got: " + actualErrorMessage);
-        }
+        assertTrue(actualErrorMessage.contains(expectedErrorMessage),
+                "Expected: " + expectedErrorMessage + " but got: " + actualErrorMessage);
         driver.quit();
     }
 
@@ -64,12 +58,10 @@ public class LoginSteps {
     public void iShouldSeeAnErrorMessageIndicatingThatFieldsCannotBeEmpty(String expectedUsernameError, String expectedPasswordError) {
         String actualUsernameError = driver.findElement(By.id("username-error")).getText();
         String actualPasswordError = driver.findElement(By.id("password-error")).getText();
-        if (!actualUsernameError.equals(expectedUsernameError)) {
-            throw new AssertionError("Expected username error: " + expectedUsernameError + " but got: " + actualUsernameError);
-        }
-        if (!actualPasswordError.equals(expectedPasswordError)) {
-            throw new AssertionError("Expected password error: " + expectedPasswordError + " but got: " + actualPasswordError);
-        }
+        assertEquals(expectedUsernameError, actualUsernameError,
+                "Expected username error message: " + expectedUsernameError + " but got: " + actualUsernameError);
+        assertEquals(expectedPasswordError, actualPasswordError,
+                "Expected password error message: " + expectedPasswordError + " but got: " + actualPasswordError);
         driver.quit();
     }
 }
