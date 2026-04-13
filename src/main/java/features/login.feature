@@ -1,9 +1,14 @@
 Feature: Test Login Functionality
 
-  Scenario: Successful Login
+  Scenario Outline: Successful Login
     Given I am on the login page
-    When I enter credentials with username "admin" and password "admin123"
+    When I enter credentials with username "<username>" and password "<password>"
     Then I should be redirected to the dashboard
+
+    Examples:
+      | username | password   |
+      | admin    | admin123   |
+      | viewer   | viewer123  |
 
   Scenario: Unsuccessful Login with Invalid Credentials
     Given I am on the login page
