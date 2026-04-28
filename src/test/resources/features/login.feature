@@ -1,5 +1,6 @@
 Feature: Test Login Functionality
 
+  @smoke
   Scenario Outline: Successful Login
     Given I am on the login page
     When I enter credentials with username "<username>" and password "<password>"
@@ -10,11 +11,13 @@ Feature: Test Login Functionality
       | admin    | admin123   |
       | viewer   | viewer123  |
 
+  @regression
   Scenario: Unsuccessful Login with Invalid Credentials
     Given I am on the login page
     When I enter credentials with username "wrongUser" and password "wrongPass"
     Then I should see an error message saying "Invalid username or password"
 
+  @regression
   Scenario: Unsuccessful Login with Empty Fields
     Given I am on the login page
     When I enter credentials with username "" and password ""

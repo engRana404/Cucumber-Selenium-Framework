@@ -16,7 +16,7 @@ public class AccountSteps {
     @Given("I am on the account page")
     public void iAmOnTheAccountPage() {
         WebDriver driver = context.getDriver();
-        driver.navigate().to("https://www.qaplayground.com/bank/account");
+        driver.navigate().to("https://www.qaplayground.com/bank/accounts");
         driver.manage().timeouts().implicitlyWait(java.time.Duration.ofSeconds(10));
     }
 
