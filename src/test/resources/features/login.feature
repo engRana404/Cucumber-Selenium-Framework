@@ -19,3 +19,4 @@ Feature: Test Login Functionality
     Given I am on the login page
     When I enter credentials with username "" and password ""
     Then I should see an error message saying "Username is required" and "Password is required"
+
