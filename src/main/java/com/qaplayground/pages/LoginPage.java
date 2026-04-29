@@ -22,15 +22,15 @@ public class LoginPage {
         WebDriver driver = DriverFactory.getDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         
-        // Wait for username field to be present and visible before interacting
+        // Wait for the username field to be present and visible before interacting
         wait.until(ExpectedConditions.presenceOfElementLocated(username));
         driver.findElement(username).sendKeys(user);
         
-        // Wait for password field to be present and visible
+        // Wait for the password field to be present and visible
         wait.until(ExpectedConditions.presenceOfElementLocated(password));
         driver.findElement(password).sendKeys(pass);
         
-        // Wait for login button to be present and clickable
+        // Wait for the login button to be present and clickable
         wait.until(ExpectedConditions.elementToBeClickable(loginBtn));
         driver.findElement(loginBtn).click();
     }

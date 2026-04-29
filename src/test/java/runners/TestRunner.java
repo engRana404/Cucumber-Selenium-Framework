@@ -12,8 +12,8 @@ import org.junit.runner.RunWith;
         "pretty",
         "html:target/reports/cucumber-reports.html",
         "json:target/reports/cucumber-reports.json",
-    }
-    // tags = "@smoke"
+    },
+    tags = "@smoke"
 )
 public class TestRunner {
 }
