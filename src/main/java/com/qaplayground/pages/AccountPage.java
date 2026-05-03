@@ -1,12 +1,8 @@
 package com.qaplayground.pages;
 
 import com.qaplayground.base.DriverFactory;
+import com.qaplayground.utils.WaitUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class AccountPage {
     private final By totalBalance = By.cssSelector("[data-testid='summary-total-balance']");
@@ -20,10 +16,7 @@ public class AccountPage {
     }
 
     public String isBalanceDisplayed() {
-        WebDriver driver = DriverFactory.getDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        // Wait for the balance element to be present before accessing it
-        wait.until(ExpectedConditions.presenceOfElementLocated(totalBalance));
-        return driver.findElement(totalBalance).getText();
+        WaitUtils.waitForElementVisible(totalBalance);
+        return DriverFactory.getDriver().findElement(totalBalance).getText();
     }
 }

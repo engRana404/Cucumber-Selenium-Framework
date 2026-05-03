@@ -1,12 +1,9 @@
 package com.qaplayground.pages;
 
 import com.qaplayground.base.DriverFactory;
+import com.qaplayground.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class LoginPage {
     private final By username = By.id("username");
@@ -20,18 +17,13 @@ public class LoginPage {
 
     public void login(String user, String pass) {
         WebDriver driver = DriverFactory.getDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        
-        // Wait for the username field to be present and visible before interacting
-        wait.until(ExpectedConditions.presenceOfElementLocated(username));
+        WaitUtils.waitForElementVisible(username);
         driver.findElement(username).sendKeys(user);
-        
-        // Wait for the password field to be present and visible
-        wait.until(ExpectedConditions.presenceOfElementLocated(password));
+
+        WaitUtils.waitForElementVisible(password);
         driver.findElement(password).sendKeys(pass);
         
-        // Wait for the login button to be present and clickable
-        wait.until(ExpectedConditions.elementToBeClickable(loginBtn));
+        WaitUtils.waitForElementClickable(loginBtn);
         driver.findElement(loginBtn).click();
     }
 

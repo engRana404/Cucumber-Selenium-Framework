@@ -2,15 +2,13 @@ package steps;
 
 import com.qaplayground.base.DriverFactory;
 import com.qaplayground.pages.LoginPage;
+import com.qaplayground.utils.WaitUtils;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class LoginSteps{
     LoginPage loginPage = new LoginPage();
@@ -27,9 +25,8 @@ public class LoginSteps{
 
     @Then("I should be redirected to the dashboard")
     public void iShouldBeRedirected() {
-        WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(10));
         // Wait for ANY success indicator (e.g., welcome message, dashboard element, etc.)
-        wait.until(ExpectedConditions.or(
+        WaitUtils.getWait().until(ExpectedConditions.or(
                 ExpectedConditions.urlContains("dashboard"),
                 ExpectedConditions.presenceOfElementLocated(By.id("welcome-message"))));
     }
@@ -47,4 +44,3 @@ public class LoginSteps{
         Assert.assertEquals("Expected password error message: " + expectedPasswordError + " but got: " + actualPasswordError, expectedPasswordError, actualPasswordError);
     }
 }
-
