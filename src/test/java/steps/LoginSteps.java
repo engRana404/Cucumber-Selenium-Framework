@@ -12,6 +12,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginSteps{
     LoginPage loginPage = new LoginPage();
+    private final By WELCOME_MESSAGE = By.id("welcome-message");
+    private final By USERNAME_ERROR = By.id("username-error");
+    private final By PASSWORD_ERROR = By.id("password-error");
 
     @Given("I am on the login page")
     public void iAmOnLoginPage() {
@@ -28,7 +31,7 @@ public class LoginSteps{
         // Wait for ANY success indicator (e.g., welcome message, dashboard element, etc.)
         WaitUtils.getWait().until(ExpectedConditions.or(
                 ExpectedConditions.urlContains("dashboard"),
-                ExpectedConditions.presenceOfElementLocated(By.id("welcome-message"))));
+                ExpectedConditions.presenceOfElementLocated(WELCOME_MESSAGE)));
     }
 
     @Then("I should see an error message saying {string}")
@@ -38,8 +41,8 @@ public class LoginSteps{
 
     @Then("I should see an error message saying {string} and {string}")
     public void iShouldSeeAnErrorMessageIndicatingThatFieldsCannotBeEmpty(String expectedUsernameError, String expectedPasswordError) {
-        String actualUsernameError = DriverFactory.getDriver().findElement(By.id("username-error")).getText();
-        String actualPasswordError = DriverFactory.getDriver().findElement(By.id("password-error")).getText();
+        String actualUsernameError = DriverFactory.getDriver().findElement(USERNAME_ERROR).getText();
+        String actualPasswordError = DriverFactory.getDriver().findElement(PASSWORD_ERROR).getText();
         Assert.assertEquals("Expected username error message: " + expectedUsernameError + " but got: " + actualUsernameError, expectedUsernameError, actualUsernameError);
         Assert.assertEquals("Expected password error message: " + expectedPasswordError + " but got: " + actualPasswordError, expectedPasswordError, actualPasswordError);
     }
