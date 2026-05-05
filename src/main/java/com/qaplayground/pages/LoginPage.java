@@ -1,6 +1,7 @@
 package com.qaplayground.pages;
 
 import com.qaplayground.base.DriverFactory;
+import com.qaplayground.utils.ConfigReader;
 import com.qaplayground.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,7 +13,7 @@ public class LoginPage {
     private final By alertMessage = By.id("alert-message");
 
     public void open() {
-        DriverFactory.getDriver().get("https://www.qaplayground.com/bank");
+        DriverFactory.getDriver().get(ConfigReader.getProperty("baseUrl"));
     }
 
     public void login(String user, String pass) {
