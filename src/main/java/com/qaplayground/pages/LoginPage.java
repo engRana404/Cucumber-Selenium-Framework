@@ -2,9 +2,8 @@ package com.qaplayground.pages;
 
 import com.qaplayground.base.DriverFactory;
 import com.qaplayground.utils.ConfigReader;
-import com.qaplayground.utils.WaitUtils;
+import com.qaplayground.utils.ElementUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 public class LoginPage {
     private final By username = By.id("username");
@@ -17,15 +16,9 @@ public class LoginPage {
     }
 
     public void login(String user, String pass) {
-        WebDriver driver = DriverFactory.getDriver();
-        WaitUtils.waitForElementVisible(username);
-        driver.findElement(username).sendKeys(user);
-
-        WaitUtils.waitForElementVisible(password);
-        driver.findElement(password).sendKeys(pass);
-        
-        WaitUtils.waitForElementClickable(loginBtn);
-        driver.findElement(loginBtn).click();
+        ElementUtils.type(username, user);
+        ElementUtils.type(password, pass);
+        ElementUtils.click(loginBtn);
     }
 
     public String getErrorMessage() {

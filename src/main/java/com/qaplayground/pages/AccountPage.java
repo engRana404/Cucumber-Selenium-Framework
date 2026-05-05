@@ -2,7 +2,7 @@ package com.qaplayground.pages;
 
 import com.qaplayground.base.DriverFactory;
 import com.qaplayground.utils.ConfigReader;
-import com.qaplayground.utils.WaitUtils;
+import com.qaplayground.utils.ElementUtils;
 import org.openqa.selenium.By;
 
 public class AccountPage {
@@ -17,7 +17,6 @@ public class AccountPage {
     }
 
     public String isBalanceDisplayed() {
-        WaitUtils.waitForElementVisible(totalBalance);
-        return DriverFactory.getDriver().findElement(totalBalance).getText();
+        return ElementUtils.getText(totalBalance);
     }
 }

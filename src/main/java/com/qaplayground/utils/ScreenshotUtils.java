@@ -7,6 +7,7 @@ import org.openqa.selenium.TakesScreenshot;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 
 public class ScreenshotUtils {
     public static void capture(String name) {
@@ -16,7 +17,7 @@ public class ScreenshotUtils {
 
             Path dest = Path.of("target/reports/screenshots/" + name + ".png");
             Files.createDirectories(dest.getParent());
-            Files.copy(src.toPath(), dest);
+            Files.copy(src.toPath(), dest, StandardCopyOption.REPLACE_EXISTING);
 
         } catch (Exception e) {
             e.printStackTrace();
