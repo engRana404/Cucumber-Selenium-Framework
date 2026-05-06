@@ -1,15 +1,14 @@
 package com.qaplayground.base;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import com.qaplayground.utils.ConfigReader;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class DriverFactory {
     private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
     public static void initDriver() {
-        WebDriverManager.chromedriver().setup();
-        driver.set(new ChromeDriver());
+        String  browser = ConfigReader.getProperty("browser");
+        driver.set(BrowserFactory.createDriver(browser));
         getDriver().manage().window().maximize();
     }
 
